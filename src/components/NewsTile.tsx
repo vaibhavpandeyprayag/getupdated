@@ -6,16 +6,7 @@ interface Props {}
 const NewsTile: FC<Props> = (props) => {
   const [showContent, setShowContent] = useState(false);
   const visiblity = showContent ? "" : " hidden";
-  const URL = `https://newsdata.io/api/1/news?apikey=pub_1617021ca5cb93095d6e0092d449fec8dda3&language=en`;
-  useEffect(() => {
-    axios
-      .get(URL)
-      .then((response) => {
-        console.log(response);
-        console.log("Working...");
-      })
-      .catch((error) => console.log(error));
-  });
+
   return (
     <div className="flex flex-col p-4 border-2 rounded-xl">
       <div className="flex justify-between gap-4">

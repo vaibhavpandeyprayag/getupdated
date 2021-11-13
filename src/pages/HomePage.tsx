@@ -1,9 +1,21 @@
-import { FC, memo } from "react";
+import axios from "axios";
+import { FC, memo, useEffect } from "react";
 import NewsTile from "../components/NewsTile";
 
 interface Props {}
 
 const HomePage: FC<Props> = (props) => {
+  const URL1 = `https://newsdata.io/api/1/news?apikey=pub_1617021ca5cb93095d6e0092d449fec8dda3&language=en`;
+  const URL2 = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8737a276f2c34d44a104647a2dc5afcd`;
+  useEffect(() => {
+    axios
+      .get(URL2)
+      .then((response) => {
+        console.log(response);
+        console.log("Working...");
+      })
+      .catch((error) => console.log(error));
+  });
   return (
     <div className="flex flex-col items-center">
       <div className="flex justify-center w-full bg-blue-700">
