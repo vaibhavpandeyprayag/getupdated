@@ -7,9 +7,10 @@ interface Props {}
 const HomePage: FC<Props> = (props) => {
   const URL1 = `https://newsdata.io/api/1/news?apikey=pub_1617021ca5cb93095d6e0092d449fec8dda3&language=en`;
   const URL2 = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8737a276f2c34d44a104647a2dc5afcd`;
+  const URL3 = `https://gnews.io/api/v4/top-headlines?token=45372783ca7c7bbc6d0a5036347549c6&lang=en`;
   useEffect(() => {
     axios
-      .get(URL2)
+      .get(URL3)
       .then((response) => {
         console.log(response);
         console.log("Working...");
