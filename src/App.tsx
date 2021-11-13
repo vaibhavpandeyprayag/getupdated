@@ -1,9 +1,12 @@
-function App() {
-  return (
-    <div>
-      <h1 className="text-2xl">GetUpdated</h1>
-    </div>
-  );
-}
+import { FC, memo } from "react";
+import HomePage from "./pages/HomePage";
 
-export default App;
+interface Props {}
+
+const App: FC<Props> = (props) => {
+  return <HomePage />;
+};
+
+App.defaultProps = {};
+
+export default memo(App);
