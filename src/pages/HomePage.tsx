@@ -8,9 +8,10 @@ const HomePage: FC<Props> = (props) => {
   const URL1 = `https://newsdata.io/api/1/news?apikey=pub_1617021ca5cb93095d6e0092d449fec8dda3&language=en`;
   const URL2 = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8737a276f2c34d44a104647a2dc5afcd`;
   const URL3 = `https://gnews.io/api/v4/top-headlines?token=45372783ca7c7bbc6d0a5036347549c6&lang=en`;
+  const URL4 = `https://api.openweathermap.org/data/2.5/weather?q=London&appid=97e2c0a86d5c963140ab72d090e4e62b`;
   useEffect(() => {
     axios
-      .get(URL3)
+      .get(URL4)
       .then((response) => {
         console.log(response);
         console.log("Working...");
@@ -34,7 +35,7 @@ const HomePage: FC<Props> = (props) => {
         </div>
       </div>
       <div className="w-2/3 mt-8">
-        <NewsTile />
+        <NewsTile title="" link="" time="" description="" image="" />
       </div>
     </div>
   );

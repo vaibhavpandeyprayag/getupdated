@@ -1,7 +1,13 @@
 import axios from "axios";
 import { FC, memo, useEffect, useState } from "react";
 
-interface Props {}
+interface Props {
+  title: string;
+  link: string;
+  time: string;
+  description: string;
+  image: string;
+}
 
 const NewsTile: FC<Props> = (props) => {
   const [showContent, setShowContent] = useState(false);
