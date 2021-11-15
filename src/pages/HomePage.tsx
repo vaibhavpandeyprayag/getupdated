@@ -1,41 +1,136 @@
 import axios from "axios";
-import { FC, memo, useEffect } from "react";
+import { FC, memo, useEffect, useState } from "react";
+import {
+  News,
+  TOP_HEADLINES,
+  INDIA,
+  SPORTS,
+  BUSINESS,
+  TECHNOLOGY,
+  HEALTH,
+  ENTERTAINMENT,
+  SCIENCE,
+  SEARCH,
+} from "../definitions";
 import NewsTile from "../components/NewsTile";
-
+import { SearchIcon } from "@heroicons/react/solid";
 interface Props {}
 
 const HomePage: FC<Props> = (props) => {
-  const URL1 = `https://newsdata.io/api/1/news?apikey=pub_1617021ca5cb93095d6e0092d449fec8dda3&language=en`;
-  const URL2 = `https://newsapi.org/v2/top-headlines?country=in&apiKey=8737a276f2c34d44a104647a2dc5afcd`;
-  const URL3 = `https://gnews.io/api/v4/top-headlines?token=45372783ca7c7bbc6d0a5036347549c6&lang=en`;
-  const URL4 = `https://api.openweathermap.org/data/2.5/weather?q=London&appid=97e2c0a86d5c963140ab72d090e4e62b`;
+  const [keywords, setKeywords] = useState("");
+  const [URL, setURL] = useState(TOP_HEADLINES);
+  const [news, setNews] = useState<News[]>([]);
   useEffect(() => {
     axios
-      .get(URL4)
+      .get(URL)
       .then((response) => {
-        console.log(response);
-        console.log("Working...");
+        setNews(response.data.articles);
+        console.log(response.data.articles);
       })
       .catch((error) => console.log(error));
-  });
+  }, [URL]);
   return (
     <div className="flex flex-col items-center">
-      <div className="flex justify-center w-full bg-blue-700">
-        <div className="relative flex flex-col w-2/3">
-          <div className="absolute top-2 right-0 flex gap-4 text-white">
+      <div className="flex justify-center w-full text-white bg-blue-700">
+        <div className="relative flex flex-col w-full sm:w-full md:w-2/3 lg:2/3">
+          <div className="absolute top-2 right-4 sm:right-4 md:right-0 lg:right-0 flex gap-4 ">
             <h3 className="text-xl">Weather</h3>
             <h3 className="text-xl">Sports</h3>
           </div>
-          <div className="flex flex-col w-full items-center py-24">
-            <h1 className="text-6xl font-semibold text-white">get updated</h1>
-            <h1 className="mt-8 text-xl font-semibold text-white">
+          <div className="flex flex-col w-full items-center py-16">
+            <h1 className="text-6xl font-semibold transition-all duration-200 filter drop-shadow-heading">
+              get updated
+            </h1>
+            <h1 className="mt-8 text-xl font-semibold">
               A reliable source of news links all over the world.
             </h1>
           </div>
+          <div className="flex flex-col items-center my-4">
+            <div className="grid grid-cols-4 lg:grid-cols-4 my-2 gap-2">
+              <button
+                onClick={() => setURL(TOP_HEADLINES)}
+                className="transform hover:scale-110 active:scale-125 transition-all"
+              >
+                Top-headlines
+              </button>
+              <button
+                onClick={() => setURL(INDIA)}
+                className="transform hover:scale-110 active:scale-125 transition-all"
+              >
+                India
+              </button>
+              <button
+                onClick={() => setURL(SPORTS)}
+                className="transform hover:scale-110 active:scale-125 transition-all"
+              >
+                Sports
+              </button>
+              <button
+                onClick={() => setURL(BUSINESS)}
+                className="transform hover:scale-110 active:scale-125 transition-all"
+              >
+                Business
+              </button>
+              <button
+                onClick={() => setURL(TECHNOLOGY)}
+                className="transform hover:scale-110 active:scale-125 transition-all"
+              >
+                Technology
+              </button>
+              <button
+                onClick={() => setURL(HEALTH)}
+                className="transform hover:scale-110 active:scale-125 transition-all"
+              >
+                Health
+              </button>
+              <button
+                onClick={() => setURL(ENTERTAINMENT)}
+                className="transform hover:scale-110 active:scale-125 transition-all"
+              >
+                Entertainment
+              </button>
+              <button
+                onClick={() => setURL(SCIENCE)}
+                className="transform hover:scale-110 active:scale-125 transition-all"
+              >
+                Science
+              </button>
+            </div>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="flex gap-2 px-4 h-9 w-full sm:w-full md:w-11/12 lg:w-1/2"
+            >
+              <input
+                onChange={(e) => setKeywords(e.currentTarget.value)}
+                className="flex-1 p-1 rounded-md outline-none focus:border-2 border-black text-black"
+                placeholder="Type comma separated keywords"
+              />
+              <button
+                onClick={() => {
+                  if (keywords !== "") {
+                    setKeywords(keywords.trim());
+                    var searchQuery = keywords.replace(",", " OR ");
+                    setURL(SEARCH + searchQuery);
+                  }
+                }}
+              >
+                <SearchIcon className="w-8 h-8 transform active:scale-75" />
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-      <div className="w-2/3 mt-8">
-        <NewsTile title="" link="" time="" description="" image="" />
+      <div className="w-full sm:w-full md:w-11/12 lg:w-4/6 mt-8">
+        {news.map((eachNews, index) => (
+          <NewsTile
+            key={index}
+            title={eachNews.title}
+            url={eachNews.url}
+            publishedAt={eachNews.publishedAt}
+            description={eachNews.description}
+            image={eachNews.image}
+          />
+        ))}
       </div>
     </div>
   );

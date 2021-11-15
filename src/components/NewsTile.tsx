@@ -1,59 +1,52 @@
-import axios from "axios";
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useState } from "react";
+import { News } from "../definitions";
+import NewsIcon from "../newsIcon.png";
+import { ExternalLinkIcon } from "@heroicons/react/solid";
 
-interface Props {
-  title: string;
-  link: string;
-  time: string;
-  description: string;
-  image: string;
-}
+interface Props extends News {}
 
 const NewsTile: FC<Props> = (props) => {
   const [showContent, setShowContent] = useState(false);
   const visiblity = showContent ? "" : " hidden";
-
   return (
-    <div className="flex flex-col p-4 border-2 rounded-xl">
-      <div className="flex justify-between gap-4">
-        <div className="flex flex-col justify-between text-justify ">
-          <div>
+    <div className="flex flex-col p-2 border-2 rounded-xl m-2 transform transiton-all duration-1000 ease-in-out w-auto">
+      <div className="flex flex-col-reverse sm:flex-col-reverse md:flex-row lg:flex-row justify-between items-center gap-4">
+        <div className="flex flex-col justify-between h-full sm:h-full md:h-36 lg:h-32 text-justify w-full sm:w-full md:w-5/6 lg:3/4">
+          <div className="">
             <h3
               onClick={() => {
                 setShowContent(!showContent);
               }}
               className="text-xl font-bold inline mr-4 hover:text-gray-500 cursor-pointer"
             >
-              Chorus To Take Back Kangana Ranaut's Padma Award, Congress Seeks
-              Legal Action Against Actress
+              {props.title}
             </h3>
 
             <a
+              className="underline text-blue-600 hover:text-blue-800"
               rel="noreferrer"
               target="_blank"
-              href="https://news.google.com/__i/rss/rd/articles/CBMiW2h0dHBzOi8vaW5kaWFuZXhwcmVzcy5jb20vYXJ0aWNsZS9pbmRpYS9jb3JvbmF2aXJ1cy1pbmRpYS1saXZlLXVwZGF0ZXMtc2Vjb25kLXdhdmUtNzI4ODAxNy_SAWBodHRwczovL2luZGlhbmV4cHJlc3MuY29tL2FydGljbGUvaW5kaWEvY29yb25hdmlydXMtaW5kaWEtbGl2ZS11cGRhdGVzLXNlY29uZC13YXZlLTcyODgwMTcvbGl0ZS8?oc=5"
+              href={props.url}
             >
-              Link
+              <ExternalLinkIcon className="inline w-6 h-6" />
             </a>
           </div>
-          <h2>Time: 2021-04-25 05:12:50</h2>
+          <h2 className="mt-4 sm:mt-4 md:mt-0 lg:mt-0">
+            <span className="font-bold">Time: </span> {props.publishedAt}
+          </h2>
         </div>
         <img
-          className="w-48 h-36 bg-yellow-600 rounded-md"
-          src="https://www.telegraph.co.uk/content/dam/global-health/2021/04/25/TELEMMGLPICT000256827032_trans_NvBQzQNjv4BqM37qcIWR9CtrqmiMdQVx7Lz15pYf9gWQ0mJPVyrrflw.jpeg"
-          alt="Photo not available"
+          onError={(e) => {
+            e.currentTarget.src = NewsIcon;
+            e.currentTarget.className =
+              "w-1/4 h-16 rounded-md object-contain border-0 ";
+          }}
+          className="w-full h-full sm:w-full sm:h-full  md:w-1/4 md:h-32 lg:w-1/4 lg:h-32 rounded-md object-contain border-0 "
+          src={props.image}
         />
       </div>
 
-      <h3 className={"mt-4" + visiblity}>
-        Description: Coronavirus India Live Updates: India records 3.49 lakh new
-        Covid cases, 2,767 deaths The Indian ExpressIndia's COVID woes worsen
-        amid continued oxygen shortage Al Jazeera EnglishCovid-19: Daily cases
-        touch 3.5 lakh; 2,760 die in 24 hours Times of IndiaBreathless in India:
-        The price of inaction The New Indian ExpressCovid-19: Is this a
-        political turning point? Hindustan TimesView Full coverage on Google
-        News
-      </h3>
+      <h3 className={"mt-4" + visiblity}>{props.description}</h3>
     </div>
   );
 };
