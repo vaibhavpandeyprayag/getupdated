@@ -43,6 +43,7 @@ const NewsTile: FC<Props> = (props) => {
           }}
           className="w-full h-full sm:w-full sm:h-full  md:w-1/4 md:h-32 lg:w-1/4 lg:h-32 rounded-md object-contain border-0 "
           src={props.image}
+          alt=""
         />
       </div>
 
