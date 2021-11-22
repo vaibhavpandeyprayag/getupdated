@@ -8,6 +8,7 @@ import WeatherTitle from "../components/WeatherTitle";
 interface Props {}
 
 const WeatherPage: FC<Props> = (props) => {
+  document.title = "Get Updated - Weather";
   const [city, setCity] = useState("Delhi");
   const [URL, setURL] = useState(WEATHER + city);
   const [weatherReport, setWeatherReport] = useState<Weather>({
@@ -37,9 +38,6 @@ const WeatherPage: FC<Props> = (props) => {
           <div className="flex justify-center">
             <Link to="/" className="text-xl mr-8">
               News
-            </Link>
-            <Link to="/weather" className="text-xl ml-8">
-              Sports
             </Link>
           </div>
           <div className="flex flex-col w-full items-center px-4 py-16">

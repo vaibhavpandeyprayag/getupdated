@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 interface Props {}
 
 const HomePage: FC<Props> = (props) => {
+  document.title = "Get Updated - Home";
   const [keywords, setKeywords] = useState("");
   const [URL, setURL] = useState(TOP_HEADLINES);
   const [news, setNews] = useState<News[]>([]);
@@ -37,12 +38,6 @@ const HomePage: FC<Props> = (props) => {
               className="text-xl mr-8 transform hover:scale-110 active:scale-125 transition-all"
             >
               Weather
-            </Link>
-            <Link
-              to="/weather"
-              className="text-xl mr-8 transform hover:scale-110 active:scale-125 transition-all"
-            >
-              Sports
             </Link>
           </div>
           <div className="flex flex-col w-full items-center px-4 py-16">
