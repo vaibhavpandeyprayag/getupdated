@@ -1,6 +1,6 @@
 # Deployment link
 
-[http://getupdated.netlify.app](getupdated.netlify.app)
+[http://getupdated.netlify.app](http://getupdated.netlify.app)
 
 # Getting Started with Create React App
 
